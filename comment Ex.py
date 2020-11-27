@@ -96,7 +96,7 @@ def login():
                         # 스티커 박스 클릭
                         driver.execute_script(
                             'document.querySelector("#app > div > div > div.ArticleContentBox > div.article_container > div.CommentBox > div.CommentWriter > div.comment_attach > div.attach_box > a").click()')
-                        time.sleep(0.5)
+                        time.sleep(1)
                         # 스티커 선택
                         driver.execute_script(
                             'document.querySelector("#app > div > div > div.ArticleContentBox > div.article_container > div.CommentBox > div.CommentWriter > div.comment_attach > div.attach_box > div > div > div > div > ul > li.active > div > ul > li:nth-child(6) > button").click()')
@@ -108,7 +108,7 @@ def login():
                     elif board == 195:
                         driver.execute_script(
                             'document.querySelector("#app > div > div > div.ArticleContentBox > div.article_container > div.CommentBox > div.CommentWriter > div.comment_attach > div.attach_box > a").click()')
-                        time.sleep(0.5)
+                        time.sleep(1)
                         driver.execute_script(
                             'document.querySelector("#app > div > div > div.ArticleContentBox > div.article_container > div.CommentBox > div.CommentWriter > div.comment_attach > div.attach_box > div > div > div > div > ul > li.active > div > ul > li:nth-child(5) > button").click()')
                         time.sleep(1)
