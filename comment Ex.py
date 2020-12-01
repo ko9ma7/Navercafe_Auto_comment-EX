@@ -1,12 +1,14 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from tkinter import *
+from tkinter import ttk
+from passlist import *
 import time
 import pyperclip
 
 # 로그인 창
 win = Tk()
-win.geometry('200x120')
+win.geometry('200x150')
 win.title('Login')
 
 # ID 입력창
@@ -20,6 +22,16 @@ pwLabel = Label(win, text="Password")
 pwLabel.pack()
 pwEntry = Entry(win, show='*')
 pwEntry.pack()
+
+# 게시판 선택
+comboExample = ttk.Combobox(win,
+                            values=[
+                                "매매일지",
+                                "뉴스",
+                                "모바일수익",
+                                "가입인사"])
+comboExample.current(1)
+comboExample.pack()
 
 
 def login():
@@ -54,11 +66,14 @@ def login():
     time.sleep(3)
 
     # 게시판 (189 매매일지, 940 모바일수익, 195 뉴스, 74 가입인사)
-    board = 195
-
-    # passlist (글을 확인하지 않고 넘어가는 아이디 리스트)
-    passlist = ["사볼까", "메타러닝", "호모루덴스", "살미꼴짝",
-                "SF트레이더", "무한 도전", "훼일로드 Revenant", "하얀삼손", "수급천황"]
+    if comboExample.get() == "매매일지":
+        board = 189
+    elif comboExample.get() == "뉴스":
+        board = 195
+    elif comboExample.get() == "모바일수익":
+        board = 940
+    elif comboExample.get() == "가입인사":
+        board = 74
 
     # 게시글 페이지 1번부터 확인(1페이지에 15개씩 default는 총 195개까지)
     for j in range(1, 14):
@@ -92,7 +107,8 @@ def login():
                     driver.execute_script(
                         'document.querySelector("#app > div > div > div.ArticleContentBox > div.article_container > div.ReplyBox > div.box_left > div > div > a > span").click()')
                     time.sleep(1)
-                    if board == 189:
+                    # 매매일지 or 모바일 수익
+                    if board == 189 or board == 940:
                         # 스티커 박스 클릭
                         driver.execute_script(
                             'document.querySelector("#app > div > div > div.ArticleContentBox > div.article_container > div.CommentBox > div.CommentWriter > div.comment_attach > div.attach_box > a").click()')
@@ -105,6 +121,7 @@ def login():
                         driver.execute_script(
                             'document.querySelector("#app > div > div > div.ArticleContentBox > div.article_container > div.CommentBox > div.CommentWriter > div.comment_attach > div.register_box > a").click()')
                         time.sleep(2)
+                    # 뉴스
                     elif board == 195:
                         driver.execute_script(
                             'document.querySelector("#app > div > div > div.ArticleContentBox > div.article_container > div.CommentBox > div.CommentWriter > div.comment_attach > div.attach_box > a").click()')
