@@ -86,41 +86,24 @@ def login():
         for i in range(1, 16):
             # 본문은 iframe으로 이뤄져있다. 들어가기.
             driver.switch_to_frame("cafe_main")
-
             # 작성자 확인
             nickname = driver.execute_script(
                 f'return document.querySelector("#main-area > div:nth-child(6) > table > tbody > tr:nth-child({i}) > td.td_name > div > table > tbody > tr > td > a").innerText')
             # passlist와 비교
             if nickname not in passlist:
-                # 페이지 상단글부터 클릭
-                driver.execute_script(
-                    f'document.querySelector("#main-area > div:nth-child(6) > table > tbody > tr:nth-child({i}) > td.td_article > div.board-list > div > a").click()')
-                time.sleep(2)
-                # 좋아요 값 확인
-                like = driver.execute_script(
-                    "return document.querySelector('#app > div > div > div.ArticleContentBox > div.article_container > div.ReplyBox > div.box_left > div > div > a').getAttribute('aria-pressed')")
-                # 좋아요가 눌러져있으면 종료.
-                if like == 'true':
-                    driver.quit()
-                # false일 때 좋아요 누르기 및 댓글 쓰기.
+                # 좋아요 없는 게시판
+                if board == 74:
+                    addJoinus(i)
                 else:
-                    # 좋아요 클릭
-                    driver.execute_script(
-                        'document.querySelector("#app > div > div > div.ArticleContentBox > div.article_container > div.ReplyBox > div.box_left > div > div > a > span").click()')
-                    time.sleep(1)
                     # 매매일지 or 모바일 수익
                     if board == 189 or board == 940:
-                        addTradinglogComments()
-                        # 뉴스
+                        addTradinglogComments(i)
+                    # 뉴스
                     elif board == 195:
-                        addTradinglogComments()
-                        # 새로고침해서 밖으로 빠져나가기
-                    driver.refresh()
-                    time.sleep(3)
+                        addNewsComments(i)
             else:
                 driver.refresh()
                 time.sleep(1)
-                continue
 
 
 # login 버튼
