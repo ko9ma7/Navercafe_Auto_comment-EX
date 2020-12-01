@@ -3,6 +3,7 @@ from selenium.webdriver.common.keys import Keys
 from tkinter import *
 from tkinter import ttk
 from passlist import *
+from commentscript import *
 import time
 import pyperclip
 
@@ -109,38 +110,17 @@ def login():
                     time.sleep(1)
                     # 매매일지 or 모바일 수익
                     if board == 189 or board == 940:
-                        # 스티커 박스 클릭
-                        driver.execute_script(
-                            'document.querySelector("#app > div > div > div.ArticleContentBox > div.article_container > div.CommentBox > div.CommentWriter > div.comment_attach > div.attach_box > a").click()')
-                        time.sleep(1)
-                        # 스티커 선택
-                        driver.execute_script(
-                            'document.querySelector("#app > div > div > div.ArticleContentBox > div.article_container > div.CommentBox > div.CommentWriter > div.comment_attach > div.attach_box > div > div > div > div > ul > li.active > div > ul > li:nth-child(6) > button").click()')
-                        time.sleep(1)
-                        # 등록 클릭
-                        driver.execute_script(
-                            'document.querySelector("#app > div > div > div.ArticleContentBox > div.article_container > div.CommentBox > div.CommentWriter > div.comment_attach > div.register_box > a").click()')
-                        time.sleep(2)
-                    # 뉴스
+                        addTradinglogComments()
+                        # 뉴스
                     elif board == 195:
-                        driver.execute_script(
-                            'document.querySelector("#app > div > div > div.ArticleContentBox > div.article_container > div.CommentBox > div.CommentWriter > div.comment_attach > div.attach_box > a").click()')
-                        time.sleep(1)
-                        driver.execute_script(
-                            'document.querySelector("#app > div > div > div.ArticleContentBox > div.article_container > div.CommentBox > div.CommentWriter > div.comment_attach > div.attach_box > div > div > div > div > ul > li.active > div > ul > li:nth-child(5) > button").click()')
-                        time.sleep(1)
-                        driver.execute_script(
-                            'document.querySelector("#app > div > div > div.ArticleContentBox > div.article_container > div.CommentBox > div.CommentWriter > div.comment_attach > div.register_box > a").click()')
-                        time.sleep(2)
-                    # 새로고침해서 밖으로 빠져나가기
+                        addTradinglogComments()
+                        # 새로고침해서 밖으로 빠져나가기
                     driver.refresh()
                     time.sleep(3)
             else:
                 driver.refresh()
                 time.sleep(1)
                 continue
-    # 브라우저 종료
-    driver.quit()
 
 
 # login 버튼
