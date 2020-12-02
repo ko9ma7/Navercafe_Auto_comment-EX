@@ -127,12 +127,14 @@ def login():
                             time.sleep(2)
                             driver.refresh()
                             time.sleep(3)
+                            continue
                         # 중복 있으면 종료
                         else:
                             driver.quit()
                     else:
                         driver.refresh()
                         time.sleep(1)
+                        continue
                 else:
                     # 매매일지 or 모바일 수익
                     if board == 189 or board == 940:
@@ -166,6 +168,7 @@ def login():
                             # 새로고침해서 밖으로 빠져나가기
                             driver.refresh()
                             time.sleep(3)
+                            continue
                     # 뉴스
                     elif board == 195:
                         driver.execute_script(
@@ -190,9 +193,11 @@ def login():
                             time.sleep(2)
                             driver.refresh()
                             time.sleep(3)
+                            continue
             else:
                 driver.refresh()
                 time.sleep(1)
+                continue
 
 
 # login 버튼
