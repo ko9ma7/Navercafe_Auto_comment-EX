@@ -181,6 +181,11 @@ def login():
                         driver.refresh()
                         time.sleep(3)
                         continue
+                # 지정된 게시판이 아닐 때
+                else:
+                    driver.refresh()
+                    time.sleep(1)
+                    continue
             else:
                 driver.refresh()
                 time.sleep(1)
