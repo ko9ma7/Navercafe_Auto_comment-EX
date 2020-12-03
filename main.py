@@ -8,7 +8,7 @@ import pyperclip
 
 # 로그인 창
 win = Tk()
-win.geometry('200x120')
+win.geometry('200x160')
 win.title('Login')
 
 # ID 입력창
@@ -22,6 +22,12 @@ pwLabel = Label(win, text="Password")
 pwLabel.pack()
 pwEntry = Entry(win, show='*')
 pwEntry.pack()
+
+# page 입력
+pageLabel = Label(win, text="Pages")
+pageLabel.pack()
+pageEntry = Entry(win)
+pageEntry.pack()
 
 
 def login():
@@ -56,9 +62,9 @@ def login():
     time.sleep(3)
 
     # 이중 for문 break를 위한 변수 할당
-    getExit = True
+    # getExit = True
     # 전체게시판 게시글 페이지 1번부터 확인(1페이지에 15개씩 default는 총 195개까지)
-    for j in range(1, 16):
+    for j in range(1, int(pageEntry.get())+1):
         driver.get(
             f'https://cafe.naver.com/stockschart?iframe_url=/ArticleList.nhn%3Fsearch.clubid=11974608%26search.boardtype=L%26search.totalCount=151%26search.page={j}')
         time.sleep(2)
@@ -113,8 +119,11 @@ def login():
                             continue
                         # 중복 있으면 종료
                         else:
-                            driver.quit()
-                            break
+                            # driver.quit()
+                            # break
+                            driver.refresh()
+                            time.sleep(1)
+                            continue
                     else:
                         driver.refresh()
                         time.sleep(1)
@@ -130,9 +139,12 @@ def login():
                         "return document.querySelector('#app > div > div > div.ArticleContentBox > div.article_container > div.ReplyBox > div.box_left > div > div > a').getAttribute('aria-pressed')")
                     # 좋아요가 눌러져있으면 종료.
                     if like == 'true':
-                        driver.quit()
-                        getExit = False
-                        break
+                        # driver.quit()
+                        # getExit = False
+                        # break
+                        driver.refresh()
+                        time.sleep(1)
+                        continue
                     else:
                         # 좋아요 클릭
                         driver.execute_script(
@@ -162,9 +174,12 @@ def login():
                     like = driver.execute_script(
                         "return document.querySelector('#app > div > div > div.ArticleContentBox > div.article_container > div.ReplyBox > div.box_left > div > div > a').getAttribute('aria-pressed')")
                     if like == 'true':
-                        driver.quit()
-                        getExit = False
-                        break
+                        # driver.quit()
+                        # getExit = False
+                        # break
+                        driver.refresh()
+                        time.sleep(1)
+                        continue
                     else:
                         driver.execute_script(
                             'document.querySelector("#app > div > div > div.ArticleContentBox > div.article_container > div.ReplyBox > div.box_left > div > div > a > span").click()')
@@ -190,8 +205,9 @@ def login():
                 driver.refresh()
                 time.sleep(1)
                 continue
-        if getExit == False:
-            break
+        # if getExit == False:
+        #     break
+    driver.quit()
 
 
 # login 버튼
