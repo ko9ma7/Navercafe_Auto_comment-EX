@@ -74,7 +74,8 @@ def login():
         board = 940
     elif comboExample.get() == "가입인사":
         board = 74
-
+    # 이중 for문 break를 위한 변수 할당
+    getExit = True
     # 게시글 페이지 1번부터 확인(1페이지에 15개씩 default는 총 195개까지)
     for j in range(1, 14):
         driver.get(
@@ -131,6 +132,7 @@ def login():
                         # 중복 있으면 종료
                         else:
                             driver.quit()
+                            break
                     else:
                         driver.refresh()
                         time.sleep(1)
@@ -148,6 +150,8 @@ def login():
                         # 좋아요가 눌러져있으면 종료.
                         if like == 'true':
                             driver.quit()
+                            getExit = False
+                            break
                         else:
                             # 좋아요 클릭
                             driver.execute_script(
@@ -178,6 +182,8 @@ def login():
                             "return document.querySelector('#app > div > div > div.ArticleContentBox > div.article_container > div.ReplyBox > div.box_left > div > div > a').getAttribute('aria-pressed')")
                         if like == 'true':
                             driver.quit()
+                            getExit = False
+                            break
                         else:
                             driver.execute_script(
                                 'document.querySelector("#app > div > div > div.ArticleContentBox > div.article_container > div.ReplyBox > div.box_left > div > div > a > span").click()')
@@ -198,6 +204,8 @@ def login():
                 driver.refresh()
                 time.sleep(1)
                 continue
+        if getExit == False:
+            break
 
 
 # login 버튼
