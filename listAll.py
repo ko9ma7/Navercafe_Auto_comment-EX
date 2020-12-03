@@ -16,7 +16,7 @@ passlist = [
 ]
 logBoard = [
     "매매일지/결산일지",
-    "모바일수익인증 ",
+    "모바일수익인증",
 ]
 MembershipBoard = [
     "가입인사(or 댓글10개)",
