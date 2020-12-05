@@ -95,6 +95,13 @@ def login():
                         driver.execute_script(
                             f'document.querySelector("#main-area > div:nth-child(6) > table > tbody > tr:nth-child({i}) > td.td_article > div.board-list > div > a").click()')
                         time.sleep(2)
+                        # 댓글창 닫기 옵션 확인
+                        commentOption = driver.execute_script(
+                            'return document.querySelector("#app > div > div > div.ArticleContentBox > div.article_container > div.CommentBox > div.CommentWriter > div.comment_attach > div.attach_box > a")')
+                        if commentOption == 'null':
+                            driver.refresh()
+                            time.sleep(1)
+                            continue
                         # 댓글 작성자 node 리스트
                         setAuthorList = driver.find_elements_by_css_selector(
                             ".comment_nickname")
@@ -113,9 +120,9 @@ def login():
                             time.sleep(1)
                             driver.execute_script(
                                 'document.querySelector("#app > div > div > div.ArticleContentBox > div.article_container > div.CommentBox > div.CommentWriter > div.comment_attach > div.register_box > a").click()')
-                            time.sleep(2)
+                            time.sleep(1)
                             driver.refresh()
-                            time.sleep(3)
+                            time.sleep(1)
                             continue
                         # 중복 있으면 종료
                         else:
@@ -134,6 +141,12 @@ def login():
                     driver.execute_script(
                         f'document.querySelector("#main-area > div:nth-child(6) > table > tbody > tr:nth-child({i}) > td.td_article > div.board-list > div > a").click()')
                     time.sleep(2)
+                    commentOption = driver.execute_script(
+                        'return document.querySelector("#app > div > div > div.ArticleContentBox > div.article_container > div.CommentBox > div.CommentWriter > div.comment_attach > div.attach_box > a")')
+                    if commentOption == 'null':
+                        driver.refresh()
+                        time.sleep(1)
+                        continue
                     # 좋아요 값 확인
                     like = driver.execute_script(
                         "return document.querySelector('#app > div > div > div.ArticleContentBox > div.article_container > div.ReplyBox > div.box_left > div > div > a').getAttribute('aria-pressed')")
@@ -161,16 +174,22 @@ def login():
                         # 등록 클릭
                         driver.execute_script(
                             'document.querySelector("#app > div > div > div.ArticleContentBox > div.article_container > div.CommentBox > div.CommentWriter > div.comment_attach > div.register_box > a").click()')
-                        time.sleep(2)
+                        time.sleep(1)
                         # 새로고침해서 밖으로 빠져나가기
                         driver.refresh()
-                        time.sleep(3)
+                        time.sleep(1)
                         continue
                 # 뉴스
                 elif board in NewsBoard:
                     driver.execute_script(
                         f'document.querySelector("#main-area > div:nth-child(6) > table > tbody > tr:nth-child({i}) > td.td_article > div.board-list > div > a").click()')
                     time.sleep(2)
+                    commentOption = driver.execute_script(
+                        'return document.querySelector("#app > div > div > div.ArticleContentBox > div.article_container > div.CommentBox > div.CommentWriter > div.comment_attach > div.attach_box > a")')
+                    if commentOption == 'null':
+                        driver.refresh()
+                        time.sleep(1)
+                        continue
                     like = driver.execute_script(
                         "return document.querySelector('#app > div > div > div.ArticleContentBox > div.article_container > div.ReplyBox > div.box_left > div > div > a').getAttribute('aria-pressed')")
                     if like == 'true':
@@ -192,9 +211,9 @@ def login():
                         time.sleep(1)
                         driver.execute_script(
                             'document.querySelector("#app > div > div > div.ArticleContentBox > div.article_container > div.CommentBox > div.CommentWriter > div.comment_attach > div.register_box > a").click()')
-                        time.sleep(2)
+                        time.sleep(1)
                         driver.refresh()
-                        time.sleep(3)
+                        time.sleep(1)
                         continue
                 # 지정된 게시판이 아닐 때
                 else:
