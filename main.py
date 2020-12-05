@@ -98,7 +98,7 @@ def login():
                         # 댓글창 닫기 옵션 확인
                         commentOption = driver.execute_script(
                             'return document.querySelector("#app > div > div > div.ArticleContentBox > div.article_container > div.CommentBox > div.CommentWriter > div.comment_attach > div.attach_box > a")')
-                        if commentOption == 'null':
+                        if commentOption == None:
                             driver.refresh()
                             time.sleep(1)
                             continue
@@ -143,7 +143,7 @@ def login():
                     time.sleep(2)
                     commentOption = driver.execute_script(
                         'return document.querySelector("#app > div > div > div.ArticleContentBox > div.article_container > div.CommentBox > div.CommentWriter > div.comment_attach > div.attach_box > a")')
-                    if commentOption == 'null':
+                    if commentOption == None:
                         driver.refresh()
                         time.sleep(1)
                         continue
@@ -186,7 +186,7 @@ def login():
                     time.sleep(2)
                     commentOption = driver.execute_script(
                         'return document.querySelector("#app > div > div > div.ArticleContentBox > div.article_container > div.CommentBox > div.CommentWriter > div.comment_attach > div.attach_box > a")')
-                    if commentOption == 'null':
+                    if commentOption == None:
                         driver.refresh()
                         time.sleep(1)
                         continue
